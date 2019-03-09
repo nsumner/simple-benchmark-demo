@@ -1,8 +1,8 @@
 # NOTE: This requires google/benchmark to be installed first....
-project(PerformanceIssues)
+project(SimpleBenchmarkingDemo)
 cmake_minimum_required(VERSION 3.0)
 
-set(PACKAGE_NAME PerformanceIssues)
+set(PACKAGE_NAME SimpleBenchmarkingDemo)
 set(PACKAGE_VERSION 0.1)
 set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "wsumner@sfu.ca")

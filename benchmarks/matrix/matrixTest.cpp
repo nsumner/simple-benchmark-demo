@@ -20,19 +20,19 @@ constexpr size_t maxElementCount = 53248;
           ->Arg(4096)                                                          \
           ->Arg(6144)                                                          \
           ->Arg(8192)                                                          \
-          ->Arg(10240)                                                          \
+          ->Arg(10240)                                                         \
           ->Arg(12288)                                                         \
-          ->Arg(14336)                                                          \
+          ->Arg(14336)                                                         \
           ->Arg(16384)                                                         \
-          ->Arg(18432)                                                          \
+          ->Arg(18432)                                                         \
           ->Arg(20480)                                                         \
-          ->Arg(22528)                                                          \
+          ->Arg(22528)                                                         \
           ->Arg(24576)                                                         \
-          ->Arg(26624)                                                          \
+          ->Arg(26624)                                                         \
           ->Arg(28672)                                                         \
-          ->Arg(30720)                                                          \
+          ->Arg(30720)                                                         \
           ->Arg(32768)                                                         \
-          ->Arg(34816)                                                          \
+          ->Arg(34816)                                                         \
           ->Arg(36864)                                                         \
           ->Arg(40960)                                                         \
           ->Arg(45056)                                                         \
@@ -139,7 +139,11 @@ struct WriteDependent {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// We can then easily test the behavior of 
+// We can then easily test the behavior of different traversal orders combined
+// with different forms of operations using a single test driver. The driver
+// below may be parameterized by both an indexing scheme and an action to
+// perform at each location in the matrix. While the core algorithm is the same,
+// the actual performance can vary dramatically.
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -165,6 +169,8 @@ testAccess(benchmark::State& state) {
   state.SetBytesProcessed(items * sizeof(Element));
   state.SetComplexityN(count);
 }
+
+
 BENCHMARK_SAMPLES(testAccess, Friendly,   Read);
 BENCHMARK_SAMPLES(testAccess, Unfriendly, Read);
 BENCHMARK_SAMPLES(testAccess, Friendly,   ReadDependent);
@@ -173,5 +179,6 @@ BENCHMARK_SAMPLES(testAccess, Friendly,   Write);
 BENCHMARK_SAMPLES(testAccess, Unfriendly, Write);
 BENCHMARK_SAMPLES(testAccess, Friendly,   WriteDependent);
 BENCHMARK_SAMPLES(testAccess, Unfriendly, WriteDependent);
+
 
 BENCHMARK_MAIN();
