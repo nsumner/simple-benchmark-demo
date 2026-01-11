@@ -1,15 +1,19 @@
 // For best results use `sudo cpupower frequency-set -g performance` first.
-// Collect JSON results using `bin/matrixTest --benchmark_format=json`.
+// Collect JSON results using
+// `bin/matrixTest --benchmark_out_format=json --benchmark_out=results.json`.
 
 #include <random>
 #include <benchmark/benchmark.h>
 
 
-//constexpr size_t maxElementCount = 32768;
+constexpr size_t maxElementCount = 81920;
 
 // For a machine with 16GB RAM, this is reasonable. More than this seems
 // to start exceeding available RAM.
-constexpr size_t maxElementCount = 53248;
+// constexpr size_t maxElementCount = 53248;
+//
+// Around 26GB for a matrix of ints:
+// constexpr size_t maxElementCount = 81920;
 
 #define BENCHMARK_SAMPLES(func, ...)                                           \
         BENCHMARK_TEMPLATE(func, __VA_ARGS__)                                  \
@@ -37,6 +41,13 @@ constexpr size_t maxElementCount = 53248;
           ->Arg(40960)                                                         \
           ->Arg(45056)                                                         \
           ->Arg(49152)                                                         \
+          ->Arg(53248)                                                         \
+          ->Arg(57344)                                                         \
+          ->Arg(61440)                                                         \
+          ->Arg(65536)                                                         \
+          ->Arg(69632)                                                         \
+          ->Arg(73728)                                                         \
+          ->Arg(77824)                                                         \
           ->Arg(maxElementCount)                                               \
           ->Complexity(benchmark::oAuto)                                       \
 ;
